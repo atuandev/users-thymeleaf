@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <title>Spring MVC + Thymeleaf</title>
+    <link th:href="@{~/styles/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="width: 600px;">
+    <div class="row">
+        <h1 class="text-center">Spring MVC + Thymeleaf</h1>
+    </div>
+    <div class="row" style="padding-top: 50px;">
+    	 <a th:href="@{/register}">Register</a>
+         <a th:href="@{/login}">Login</a>  
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: UserManagementThymeleafDemo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user_management?createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  main:
+    allow-circular-references: true

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link th:href="@{~/styles/bootstrap.min.css}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="flex items-center justify-center min-h-[100vh] bg-gray-100">
+    <div class="w-full max-w-[800px] bg-white p-6 rounded-lg shadow-lg">
+        <div class="text-center text-3xl font-bold bg-sky-900 text-sky-400 py-4 mb-4">
+            <h2 class="text-center">Registration</h2>
+        </div>
+        <div th:if="${param.success}">
+            <div class="alert alert-success">You have successfully registered!</div>
+        </div>
+
+        <form method="post" th:action="@{/users/save}" th:object="${user}">
+            <input th:field="*{id}" hidden/>
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">First Name</label>
+                <div class="col-8">
+                    <input th:field="*{firstName}" class="form-control"/>
+                    <p th:errors="*{firstName}" class="text-danger" th:if="${#fields.hasErrors('firstName')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Last Name</label>
+                <div class="col-8">
+                    <input th:field="*{lastName}" class="form-control"/>
+                    <p th:errors="*{lastName}" class="text-danger" th:if="${#fields.hasErrors('lastName')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Email</label>
+                <div class="col-8">
+                    <input th:field="*{email}" class="form-control" type="email"/>
+                    <p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Password</label>
+                <div class="col-8">
+                    <input th:field="*{password}" class="form-control" type="password"/>
+                    <p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Gender</label>
+                <div class="col-8">
+                    <div class="form-check">
+                        <input id="gender1" th:field="*{gender}" type="radio" value="Male" class="form-check-input">
+                        <label for="gender1" class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check">
+                        <input id="gender2" th:field="*{gender}" type="radio" value="Female"
+                               class="form-check-input">
+                        <label for="gender2" class="form-check-label">Female</label>
+                    </div>
+                    <p th:errors="*{gender}" class="text-danger" th:if="${#fields.hasErrors('gender')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Favorite Languages</label>
+                <div class="col-8">
+                    <select th:field="*{favoriteLanguage}" class="w-full form-select">
+                        <option value="">--Select--</option>
+                        <option th:each="lang : ${listFavoriteLanguage}" th:value="${lang}"
+                                th:text="${lang}"></option>
+                    </select>
+                    <p th:errors="*{favoriteLanguage}" class="text-danger"
+                       th:if="${#fields.hasErrors('favoriteLanguage')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Married</label>
+                <div class="col-8">
+                    <div class="form-check">
+                        <input th:field="*{married}" id="married" class="form-check-input" type="checkbox"/>
+                        <label for="married" class="form-check-label">Yes</label>
+                    </div>
+                    <p th:errors="*{married}" class="text-danger" th:if="${#fields.hasErrors('married')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-4 font-semibold">Roles</label>
+                <div class="col-8">
+                    <div th:each="role : ${roles}" class="form-check">
+                        <input th:field="*{roles}" th:value="${role.id}" th:checked="${user.roles.contains(role)}" class="form-check-input" type="checkbox"/>
+                        <label th:text="${role.name}" class="form-check-label"></label>
+                    </div>
+                </div>
+                <p th:errors="*{roles}" class="text-danger" th:if="${#fields.hasErrors('roles')}"></p>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                    <button class="btn btn-primary w-full" type="submit">Register</button>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <span class="col-12 text-center">Already registered?
+                    <a th:href="@{/login}" class="text-sky-500">Login here</a>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
