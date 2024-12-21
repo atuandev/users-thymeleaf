@@ -17,18 +17,24 @@
 <!--               class="text-gray-700 font-semibold"></p>-->
             <div>
                 <a th:href="@{/register}" class="btn btn-primary mb-4">Add user</a>
-                <a th:href="@{/logout}" class="btn btn-outline-dark mb-4">Logout</a>"
+                <a th:href="@{/logout}" class="btn btn-outline-dark mb-4">Logout</a>
             </div>
         </nav>
 
         <div class="my-3">
             <form th:action="@{/users}">
-                <div class="row">
-                    <div class="col-6">
+                <div class="row mb-3">
+                    <div class="col-4">
                         <input name="keyword" class="form-control" placeholder="Enter keyword">
                     </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-info">Search</button>
+                    <div class="col-3">
+                        <input name="startDate" class="form-control" type="date" placeholder="Start Date">
+                    </div>
+                    <div class="col-3">
+                        <input name="endDate" class="form-control" type="date" placeholder="End Date">
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-info w-full">Submit</button>
                     </div>
                 </div>
             </form>
@@ -44,7 +50,8 @@
                 <th>Gender</th>
                 <th>Favorite Languages</th>
                 <th>Married</th>
-                <th>Avatar</th>
+                <th>Birthday</th>
+<!--                <th>Avatar</th>-->
                 <th>Roles</th>
                 <th>Actions</th>
             </tr>
@@ -58,7 +65,8 @@
                 <td th:text="${user.gender}"></td>
                 <td th:text="${user.favoriteLanguage}"></td>
                 <td th:text="${user.married ? 'Yes' : 'No'}"></td>
-                <td th:text="${user.avatar}"></td>
+                <td th:text="${user.dob}"></td>
+<!--                <td th:text="${user.avatar}"></td>-->
                 <td th:text="${user.getRolesAsStrings()}"></td>
                 <td class="flex gap-2">
                     <a th:href="@{'/users/update/' + ${user.id}}" class="btn btn-sm btn-warning">Edit</a>

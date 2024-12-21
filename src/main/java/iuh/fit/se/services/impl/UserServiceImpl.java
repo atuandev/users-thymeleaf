@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
             roles.add(role);
         }
 
-         for (Role role : roles) {
+        for (Role role : roles) {
             Role roleInDB = roleRepository.findByName(role.getName());
             role.setId(roleInDB.getId());
         }
@@ -72,6 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByKeyword(String keyword) {
         return userRepository.findByFirstNameOrLastNameOrEmailContainingIgnoreCase(keyword, keyword, keyword);
+    }
+
+    @Override
+    public List<User> findByDobBetween(LocalDate startDate, LocalDate endDate) {
+        return userRepository.findByDobBetween(startDate, endDate);
     }
 
     @Override

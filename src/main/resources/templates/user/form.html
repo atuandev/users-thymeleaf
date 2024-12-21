@@ -91,6 +91,14 @@
             </div>
 
             <div class="mb-3 row">
+                <label class="col-4 font-semibold">Day of Birth</label>
+                <div class="col-8">
+                    <input th:field="*{dob}" class="form-control" type="date"/>
+                    <p th:errors="*{dob}" class="text-danger" th:if="${#fields.hasErrors('dob')}"></p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
                 <label class="col-4 font-semibold">Roles</label>
                 <div class="col-8">
                     <div th:each="role : ${roles}" class="form-check">

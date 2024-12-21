@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,20 @@ public class UserController {
     }
 
     @GetMapping()
-    public String getUsers(Model model, @Param("keyword") String keyword) {
+    public String getUsers(
+            Model model,
+            @Param("keyword") String keyword,
+            @Param("startDate") String startDate,
+            @Param("endDate") String endDate
+    ) {
         List<User> users = new ArrayList<>();
 
         if (keyword != null && !keyword.isEmpty()) {
             users.addAll(userService.findByKeyword(keyword));
+        } else if (!startDate.isEmpty() && !endDate.isEmpty()) {
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+            users.addAll(userService.findByDobBetween(start, end));
         } else {
             users.addAll(userService.findAll());
         }

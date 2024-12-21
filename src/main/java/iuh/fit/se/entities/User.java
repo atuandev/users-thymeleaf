@@ -2,7 +2,10 @@ package iuh.fit.se.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,22 +45,21 @@ public class User {
 
     private boolean married;
 
+    @NotNull(message = "Date of Birth is not empty")
+    private LocalDate dob;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, String gender, String favoriteLanguage, String avatar, boolean married, Set<Role> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.gender = gender;
-        this.favoriteLanguage = favoriteLanguage;
-        this.avatar = avatar;
-        this.married = married;
-        this.roles = roles;
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
     public boolean isMarried() {
